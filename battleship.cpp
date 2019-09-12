@@ -1,7 +1,8 @@
 #include <iostream>
-using namespace std;
 #include<cstdlib>
 #include <vector>
+#include<ctime>
+using namespace std;
 
 
 int main() {
@@ -14,7 +15,7 @@ int main() {
     int j;
     bool gameRun=true;
     int guesses=0;
-    bool newGuess=false;
+    bool newGuess;
 
 
     //declares variables to accept input from random number and user
@@ -23,11 +24,11 @@ int main() {
     int inx=0;
     int iny=0;
 
-    //generates ship location and seed
-    srand(1);
+    //generates ship location and seed using time for randomness
+    srand(time(0));
     x=rand()%3;
     y=rand()%3;
-    cout<< x<< " " <<y;
+    //cout<< x<< " " <<y;
 
     //for loop to print original matrix
     for(i=0;i<game.size();i++){
@@ -68,26 +69,24 @@ int main() {
             game.at(inx).at(iny)=1;
         }
 
-        //print updated game board
+        //prints updated game board
         for(i=0;i<game.size();i++){
             for(j=0;j<game.at(i).size(); j++){
                 if(game.at(i).at(j)==1){
                     cout<< " O !";
                 }else if(game.at(i).at(j)==2){
-                    cout << "X !";
-                }else if(j!=2){
-                    cout<< "  ! ";
+                    cout << " X !";
                 }else {
-                    cout << "  ";
+                    cout << "   !";
                 }
             }
             if(i!=2) {
-                cout << endl << "  ~~~~~" << endl;
+                cout << endl << "~~~~~~~~~~"<< endl;
             }
         }
         cout << endl << endl;
 
-
+        //Checks if battleship was hit
         if((inx==x)&&(iny==y)){
             gameRun=false;
             cout << "You sunk my Battleship in " << guesses << " guesses. Congratulations." <<endl;
